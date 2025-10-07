@@ -20,7 +20,6 @@ export const NavBar = () => {
       <nav className="p-4 bg-gray-800 text-white flex justify-between items-center">
         <img src={react} alt="Logo" className="h-8" />
         <ul className="flex space-x-4 justify-center items-center">
-          {console.log(countProducts)}
           {navItems.map((item) => (
             <LinkButtonIcon key={item.name} path={item.path} nameSvg={item.svg} nameButton={item.name} count={countProducts} />
           ))}
