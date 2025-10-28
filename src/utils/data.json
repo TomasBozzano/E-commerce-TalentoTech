@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "username": "tomas",
+        "password": "tomas123",
+        "email": "tomas@example.com",
+        "role": "admin",
+        "direccion": "123 Main St, Cityville",
+        "telefono": "555-1234"
+    },
+    {
+        "id": 2,
+        "username": "maria",
+        "password": "maria123",
+        "email": "maria@example.com",
+        "role": "user",
+        "direccion": "456 Oak St, Townsville",
+        "telefono": "555-5678"
+    },
+    {
+        "id": 3,
+        "username": "juan",
+        "password": "juan123",
+        "email": "juan@example.com",
+        "role": "user",
+        "direccion": "789 Pine St, Villagetown",
+        "telefono": "555-9012"
+    },
+    {
+        "id": 4,
+        "username": "ana",
+        "password": "ana123",
+        "email": "ana@example.com",
+        "role": "user",
+        "direccion": "321 Maple St, Cityplace",
+        "telefono": "555-3456"
+    }
+]
