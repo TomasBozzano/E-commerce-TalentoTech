@@ -24,8 +24,9 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/logout' element={<LogoutPage />} />
+        <Route path='/cart' element={<CartPage />} />
+
         {/* <PrivateRoute>
-          <Route path='/cart' element={<CartPage />} />
         </PrivateRoute> */}
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
