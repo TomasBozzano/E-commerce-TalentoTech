@@ -6,5 +6,6 @@ export const StoredAuth = create((set) => ({
     logout: () => set({ isAuthenticated: false }),
     setEmail: (email) => set({ email }),
     setPassword: (password) => set({ password }),
-    reset: () => set({ email: "", password: "" }),
+    setRole: (role) => set({ role }),
+    reset: () => set({ email: "", password: "", role: "" }),
 }));

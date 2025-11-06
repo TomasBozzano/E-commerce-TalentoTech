@@ -1,7 +1,7 @@
 import { FormLayout } from "../../../components/FormLayout"
 import { InputGeneric } from "../../../components/InputGeneric"
 import { Button } from "../../../components/Button"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import { useState } from "react"
 import { validateUserSession } from "../../../services/auth.service"
@@ -22,7 +22,7 @@ export const Login = () => {
     }
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = await validateUserSession(email, password)
 
@@ -30,8 +30,10 @@ export const Login = () => {
       authStore.login();
       authStore.setEmail(email);
       authStore.setPassword(password);
+      authStore.setRole(isValid.role);
       toast.success("¡Inicio de sesión exitoso!")
-      nav("/products")
+
+      isValid.role === "admin" ? nav("/dashboard") : nav("/products")
     } else {
       toast.error("Error de autenticación. Por favor, verifica tus credenciales.")
     }
@@ -43,16 +45,19 @@ export const Login = () => {
 
   return (
     <>
-        <FormLayout title="Login">
-          <InputGeneric type="text" placeholder="Username" value={email} onChange={handleChange} />
-          <InputGeneric type="password" placeholder="Password" value={password} onChange={handleChange} />
-          <p className="text-center text-sm flex justify-center gap-1 mt-2">
-            Forgot Password? <p className="underline text-gray-400 hover:underline hover:text-gray-600 cursor-pointer">Click here</p>
-          </p>
-          <Button nameButton="Login" onClick={handleSubmit} className="mt-4 w-full" />
-          <Button nameButton="Register" onClick={registerUser} className="mt-2 w-full bg-gray-500 hover:bg-gray-600" />
-        </FormLayout>
-        <ToastContainer />
+      <FormLayout title="Login">
+        <InputGeneric type="text" placeholder="Username" value={email} onChange={handleChange} />
+        <InputGeneric type="password" placeholder="Password" value={password} onChange={handleChange} />
+        <p className="text-center text-sm flex justify-center gap-1 mt-2">
+          Forgot Password?
+          <Link to="/api/users">
+            <p className="underline text-gray-400 hover:underline hover:text-gray-600 cursor-pointer">Click here</p>
+          </Link >
+        </p>
+        <Button nameButton="Login" onClick={handleSubmit} className="mt-4 w-full" />
+        <Button nameButton="Register" onClick={registerUser} className="mt-2 w-full bg-gray-500 hover:bg-gray-600" />
+      </FormLayout>
+      <ToastContainer />
     </>
   )
 }

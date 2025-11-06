@@ -9,6 +9,7 @@ export const LogoutPage = () => {
     
     useEffect(() => {
         toast.success("¡Cierre de sesión exitoso!");
+        authStore.reset();
         authStore.logout();
     }, []);
 
