@@ -8,9 +8,9 @@ export const LogoutPage = () => {
     const authStore = StoredAuth();
     
     useEffect(() => {
-        toast.success("¡Cierre de sesión exitoso!");
         authStore.reset();
         authStore.logout();
+        toast.success("¡Cierre de sesión exitoso!");
     }, []);
 
     return <>

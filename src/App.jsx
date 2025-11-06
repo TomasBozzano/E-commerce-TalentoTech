@@ -9,11 +9,13 @@ import { LoginPage } from './pages/login/LoginPage'
 import { RegisterPage } from './pages/register/RegisterPage'
 import { LogoutPage } from './pages/logout/LogoutPage'
 import { useEffect, useState } from 'react'
-import { me } from './services/auth.service'
+import { getValidUser } from './services/auth.service'
 import { StoredAuth } from './store/StoredAuth'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { PrivateRouteAdmin } from './pages/route/PrivateRouteAdmin'
 import { UserPage } from './pages/user/UserPage'
+import { DashboardUserPage } from './pages/dashboard/components/DashboardUserPage'
+import { DashboardProductPage } from './pages/dashboard/components/DashboardProductPage'
 
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
   const { email, password, role} = auth
 
   useEffect(() => {
-    const isAuth = () => me(email, password);
+    if(!email || !password) return;
+    const isAuth = async() => await getValidUser(email, password);
     isAuth();
   }, [])
 
@@ -41,6 +44,8 @@ function App() {
         </Route>
         <Route element={<PrivateRouteAdmin role={role} />}>
           <Route path='/dashboard' element={<DashboardPage />} />
+          <Route path='/dashboard/users' element={<DashboardUserPage />} />
+          <Route path='/dashboard/products' element={<DashboardProductPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

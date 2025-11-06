@@ -24,16 +24,21 @@ export const NavBar = () => {
     { path: `/${viewUser}`, name: viewUser, svg: userIcon }
   ];
 
+  const navAdminItems = [
+    { path: "/dashboard", name: "Dashboard", svg: MdAddHomeWork },
+    { path: "/products", name: "Products", svg: FaBlender },
+    { path: "/cart", name: "Cart", svg: FaShoppingCart },
+    { path: `/${viewUser}`, name: viewUser, svg: userIcon }
+  ];
 
   return (
     <>
       <nav className="p-4 bg-gray-800 text-white flex justify-between items-center">
         <VscAttach className="h-8 w-8 mr-2" />
         <ul className="flex space-x-4 justify-center items-center">
-          {auth === 'admin' && (
-            <LinkButtonIcon path="/dashboard" nameSvg={<MdAddHomeWork className="inline-block h-4 w-6 mr-1" />} nameButton="Dashboard" />
-          )}
-          {navItems.map((item) => (
+          {auth === 'admin' ? navAdminItems.map((item) => (
+            <LinkButtonIcon key={item.name} path={item.path} nameSvg={<item.svg className="inline-block h-4 w-6 mr-1" />} nameButton={item.name} count={countProducts} />
+          )) : navItems.map((item) => (
             <LinkButtonIcon key={item.name} path={item.path} nameSvg={<item.svg className="inline-block h-4 w-6 mr-1" />} nameButton={item.name} count={countProducts} />
           ))}
         </ul>

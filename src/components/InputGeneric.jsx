@@ -1,4 +1,4 @@
-export const InputGeneric = ({ type, placeholder, value, onChange }) => {
+export const InputGeneric = ({ type, placeholder, value, onChange, onKeyDown }) => {
   return (
     <input
       type={type}
@@ -6,6 +6,7 @@ export const InputGeneric = ({ type, placeholder, value, onChange }) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown}
     />
   )
 }

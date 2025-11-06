@@ -4,7 +4,7 @@ import { Button } from "../../../components/Button"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import { useState } from "react"
-import { validateUserSession } from "../../../services/auth.service"
+import { getValidUser } from "../../../services/auth.service"
 import { StoredAuth } from "../../../store/StoredAuth"
 
 export const Login = () => {
@@ -22,18 +22,27 @@ export const Login = () => {
     }
   }
 
+  const handleEnterKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const isValid = await validateUserSession(email, password)
+    const response = await getValidUser(email, password)
 
-    if (isValid) {
+    if (response) {
       authStore.login();
-      authStore.setEmail(email);
-      authStore.setPassword(password);
-      authStore.setRole(isValid.role);
-      toast.success("¡Inicio de sesión exitoso!")
+      authStore.setEmail(response[0].email);
+      authStore.setPassword(response[0].password);
+      authStore.setRole(response[0].role);
 
-      isValid.role === "admin" ? nav("/dashboard") : nav("/products")
+      toast.success("¡Inicio de sesión exitoso!");
+
+      setTimeout(() => {
+        response[0].role === "admin" ? nav("/dashboard") : nav("/products")
+      }, 2000);
     } else {
       toast.error("Error de autenticación. Por favor, verifica tus credenciales.")
     }
@@ -47,13 +56,13 @@ export const Login = () => {
     <>
       <FormLayout title="Login">
         <InputGeneric type="text" placeholder="Username" value={email} onChange={handleChange} />
-        <InputGeneric type="password" placeholder="Password" value={password} onChange={handleChange} />
-        <p className="text-center text-sm flex justify-center gap-1 mt-2">
+        <InputGeneric type="password" placeholder="Password" value={password} onChange={handleChange} onKeyDown={handleEnterKeyPress}/>
+        <h3 className="text-center text-sm flex justify-center gap-1 mt-2">
           Forgot Password?
           <Link to="/api/users">
             <p className="underline text-gray-400 hover:underline hover:text-gray-600 cursor-pointer">Click here</p>
           </Link >
-        </p>
+        </h3>
         <Button nameButton="Login" onClick={handleSubmit} className="mt-4 w-full" />
         <Button nameButton="Register" onClick={registerUser} className="mt-2 w-full bg-gray-500 hover:bg-gray-600" />
       </FormLayout>

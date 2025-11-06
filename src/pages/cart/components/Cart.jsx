@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import trashIcon from "../../../assets/trash.svg";
 import productIcon from "../../../assets/product.svg";
+import defaultAvatar from '../../../assets/default-avatar.png'
 
 export const Cart = () => {
 
@@ -71,9 +72,9 @@ export const Cart = () => {
                 <section className="grid grid-cols-2 gap-6 w-full">
                     <article className="flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg p-4">
                         {products.map((product) => (
-                            <div key={product.id} className="flex flex-row p-2 border-b border-slate-200">
-                                <div className="mr-4">
-                                    <img src={product.avatar} alt={product.name} className="w-20 h-20 object-cover rounded-md" />
+                            <div key={product.id} className="grid grid-cols-3 p-2 border-b border-slate-200 items-center">
+                                <div className="mr-4 content-center flex justify-center items-center border-r border-slate-200 pr-4">
+                                    <img src={product.avatar === "" ? defaultAvatar : product.avatar} alt={product.name} className="w-20 h-20 object-cover rounded-md" />
                                 </div>
                                 <div className="flex flex-col justify-center">
                                     <h4 className="font-medium">{product.nombre} - ID {product.id}</h4>

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button } from "../../../components/Button"
 import { FormLayout } from "../../../components/FormLayout"
 import { InputGeneric } from "../../../components/InputGeneric"
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../../services/auth.service";
 
 export const Register = () => {
 
@@ -19,11 +20,7 @@ export const Register = () => {
 
     const changeEmail = (e) => {
         const value = e.target.value;
-        if (validateEmail(value)) {
-            setEmail(value);
-        }else{
-            toast.error("Error: formato de email inválido")
-        }
+        setEmail(value);
     }
 
 
@@ -40,8 +37,23 @@ export const Register = () => {
         return emailRegex.test(email);
     }
 
-    const handleRegister = () => {
-        // Lógica de registro aquí
+    const handleRegister = async() => {
+        if (password !== confirmPassword) {
+            toast.error("Error: las contraseñas no coinciden");
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error("Error: formato de email inválido");
+            return;
+        }
+
+        try{
+            await registerUser(username, email, password);
+            toast.success("Registro exitoso");
+            nav("/login");
+        }catch(error){
+            toast.error("302 Found: " + error);
+        }
     }
 
     const handleBackToLogin = () => {
@@ -59,6 +71,7 @@ export const Register = () => {
                 <Button nameButton="Register" onClick={handleRegister} className="mt-4 w-full" />
                 <Button nameButton="Back to Login" onClick={handleBackToLogin} className="mt-2 w-full bg-gray-500 hover:bg-gray-600" />
             </FormLayout>
+            <ToastContainer />
         </>
     )
 }

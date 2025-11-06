@@ -2,12 +2,20 @@ import { Button } from "./Button"
 import { useStore } from "../store/StoredProduct.js"
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from "react-router-dom";
+import defaultAvatar from '../assets/default-avatar.png'
+import { StoredAuth } from "../store/StoredAuth.js";
 
 export const CardProduct = ({ product }) => {
     const addProduct = useStore((state) => state.addProduct);
+    const isLoggedIn = StoredAuth((state) => state.isAuthenticated);
     const nav = useNavigate();
 
     const handleAddToCart = (product) => {
+
+        if (!isLoggedIn) {
+            toast.error("Debes iniciar sesión para agregar productos al carrito");
+            return;
+        }
 
         if (!product) return toast.error("Producto no disponible");
         addProduct(product);
@@ -23,7 +31,7 @@ export const CardProduct = ({ product }) => {
         <>
             <div className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full">
                 <div className="relative h-64 m-2.5 overflow-hidden text-white rounded-md">
-                    <img src={product.avatar} alt={product.nombre} />
+                    <img src={product.avatar === "" ? defaultAvatar : product.avatar} alt={product.nombre} />
                 </div>
                 <div className="p-4">
                     <h6 className="mb-2 text-slate-800 text-xl font-semibold">
