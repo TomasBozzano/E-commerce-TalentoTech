@@ -48,7 +48,7 @@ export const Register = () => {
         }
 
         try{
-            await registerUser(username, email, password);
+            await registerUser(username, email, password, null);
             toast.success("Registro exitoso");
             nav("/login");
         }catch(error){

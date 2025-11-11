@@ -13,7 +13,6 @@ export const ProductDetail = ({ product, id }) => {
     const addProduct = useStore((state) => state.addProduct)
 
     const handleAddToCart = () => {
-        console.log("isLoggedIn:", isLoggedIn);
         if (!isLoggedIn) {
             toast.error("Debes iniciar sesión para agregar productos al carrito");
             return;

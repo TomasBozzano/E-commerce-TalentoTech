@@ -7,6 +7,7 @@ import { MdEdit } from "react-icons/md";
 import { ModalUser } from './modal/ModalUser'
 import { ModalUserDelete } from "./modal/ModalUserDelete";
 import { ButtonDefault } from "../../../components/ButtonDefault";
+import { ModalUserCreate } from "./modal/ModalUserCreate";
 
 export const DashboardUserPage = () => {
 
@@ -15,6 +16,7 @@ export const DashboardUserPage = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
     const [selectedUserDelete, setSelectedUserDelete] = useState(null);
+    const [isModalOpenCreate, setIsModalOpenCreate] = useState(false);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -42,6 +44,9 @@ export const DashboardUserPage = () => {
             <main>
                 <h2 className='text-center text-2xl font-bold p-2 '> Dashboard Users </h2>
                 <p className='text-center'>Aquí puedes gestionar los usuarios.</p>
+                <div className="flex justify-center items-center p-2">
+                <ButtonDefault className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4" onClick={() => setIsModalOpenCreate(true)} name={"Crear Usuario"} />
+                </div>
                 <section className="p-4 w-5/6 mx-auto flex justify-center">
                     <table className="table-auto w-full border-collapse border border-blue-400 rounded-lg overflow-hidden text-center">
                         <thead className="bg-gray-200">
@@ -72,6 +77,7 @@ export const DashboardUserPage = () => {
             </main>
             {isModalOpen && <ModalUser isOpen={isModalOpen} isClosed={() => setIsModalOpen(false)} user={selectedUser} />}
             {isModalOpenDelete && <ModalUserDelete isOpen={isModalOpenDelete} isClosed={() => setIsModalOpenDelete(false)} user={selectedUserDelete} />}
+            {isModalOpenCreate && <ModalUserCreate isClosed={() => setIsModalOpenCreate(false)} />}
         </Template>
     )
 }

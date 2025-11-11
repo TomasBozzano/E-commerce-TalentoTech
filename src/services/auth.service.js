@@ -1,12 +1,14 @@
-import data from "../utils/data.json"
-
 const API_USER_URL = import.meta.env.VITE_API_USER_URL;
 
-export const registerUser = async (name, email, password) => {
+export const registerUser = async (name, email, password, role) => {
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
         throw new Error("El email ya está registrado");
+    }
+
+    if (!role) {
+        role = "user";
     }
 
     try {
@@ -15,7 +17,7 @@ export const registerUser = async (name, email, password) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, email, password, role: "" })
+            body: JSON.stringify({ name, email, password, role })
         });
         return response.json();
     } catch (error) {
