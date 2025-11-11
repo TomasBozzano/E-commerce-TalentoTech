@@ -3,13 +3,17 @@ import { Template } from "../../components/Template";
 import { StoredAuth } from "../../store/StoredAuth";
 import { Home } from "../home/components/Home";
 import { useEffect } from "react";
+import { useStore } from "../../store/StoredProduct";
 
 export const LogoutPage = () => {
-    const authStore = StoredAuth();
+    const authStore = StoredAuth(state => state);
+    const cartStore = useStore(state => state);
     
     useEffect(() => {
+        cartStore.clearCart();
         authStore.reset();
         authStore.logout();
+        localStorage.removeItem("auth");
         toast.success("¡Cierre de sesión exitoso!");
     }, []);
 

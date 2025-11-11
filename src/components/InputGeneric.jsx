@@ -7,6 +7,7 @@ export const InputGeneric = ({ type, placeholder, value, onChange, onKeyDown }) 
       value={value}
       onChange={onChange}
       onKeyDown={onKeyDown}
+      disabled={onChange ? false : true}
     />
   )
 }

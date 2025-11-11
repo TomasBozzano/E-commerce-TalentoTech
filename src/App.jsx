@@ -19,13 +19,20 @@ import { DashboardProductPage } from './pages/dashboard/components/DashboardProd
 
 
 function App() {
+  const authStore = StoredAuth((state) => state);
+  const userStored = localStorage.getItem("auth");
+  const {email, password, role} = userStored ? JSON.parse(userStored) : {email: null, password: null, role: null};
 
-  const auth = StoredAuth((state) => state)
-  const { email, password, role} = auth
 
   useEffect(() => {
     if(!email || !password) return;
-    const isAuth = async() => await getValidUser(email, password);
+    const isAuth = async() => {
+      const user = await getValidUser(email, password);
+      authStore.login();
+      authStore.setEmail(user[0].email);
+      authStore.setPassword(user[0].password);
+      authStore.setRole(user[0].role);
+    }
     isAuth();
   }, [])
 

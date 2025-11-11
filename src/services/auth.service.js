@@ -50,6 +50,8 @@ export const getValidUser = async (email, password) => {
 
     const isValid = user && user[0].password === password;
 
+    localStorage.setItem("auth", JSON.stringify(isValid ? user[0] : null));
+
     return isValid ? user : null;
 };
 
@@ -104,13 +106,24 @@ export const changePassword = async (id, oldPassword, newPassword) => {
 };
 
 export const changeRole = async (id, newRole) => {
+    console.log("changeRole service:", id, newRole);
+
+    const user = await getUsers();
+    const existingUser = user.find((user) => user.id === id);
+
+    if (!existingUser) {
+        throw new Error("Usuario no encontrado");
+    }
+
+    const updatedUser = { ...existingUser, role: newRole };
+
     try {
         const response = await fetch(`${API_USER_URL}/${id}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ role: newRole })
+            body: JSON.stringify({ ...updatedUser })
         });
         return response.json();
     } catch (error) {

@@ -8,11 +8,13 @@ import { VscAttach } from 'react-icons/vsc';
 import { StoredAuth } from "../store/StoredAuth";
 import { IoLogOut } from 'react-icons/io5';
 import { MdAddHomeWork } from "react-icons/md";
+import {formatEmail} from "../utils/utils";
 
 export const NavBar = () => {
   const countProducts = useStore((state) => state.products.length);
   const authStore = StoredAuth((state) => state.isAuthenticated);
   const auth = StoredAuth((state) => state.role);
+  const email = localStorage.getItem("auth") ? JSON.parse(localStorage.getItem("auth")).email : null;
 
   const viewUser = authStore ? "logout" : "login";
   const userIcon = authStore ? IoLogOut : LiaUserCircleSolid;
@@ -34,7 +36,10 @@ export const NavBar = () => {
   return (
     <>
       <nav className="p-4 bg-gray-800 text-white flex justify-between items-center">
-        <VscAttach className="h-8 w-8 mr-2" />
+        <div className="text-lg font-bold flex items-center">
+          <VscAttach className="h-8 w-8 mr-2" />
+          <p>{email != null ? formatEmail(email) : ""}</p>
+        </div>
         <ul className="flex space-x-4 justify-center items-center">
           {auth === 'admin' ? navAdminItems.map((item) => (
             <LinkButtonIcon key={item.name} path={item.path} nameSvg={<item.svg className="inline-block h-4 w-6 mr-1" />} nameButton={item.name} count={countProducts} />
