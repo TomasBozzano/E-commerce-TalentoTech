@@ -9,7 +9,7 @@ import { InputBox } from "../../../../components/InputBox";
 import { valueSelect } from '../../../../utils/utils';
 import { toast, ToastContainer } from "react-toastify";
 
-export const ModalUserCreate = ({ isClosed, }) => {
+export const ModalUserCreate = ({ isClosed, onSaved}) => {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -66,6 +66,7 @@ export const ModalUserCreate = ({ isClosed, }) => {
             toast.error("302 Found: " + error);
         } finally {
             setTimeout(() => {
+                onSaved();
                 isClosed();
             }, 2500);
         }

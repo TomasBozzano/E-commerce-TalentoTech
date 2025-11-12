@@ -14,7 +14,7 @@ export const NavBar = () => {
   const countProducts = useStore((state) => state.products.length);
   const authStore = StoredAuth((state) => state.isAuthenticated);
   const auth = StoredAuth((state) => state.role);
-  const email = localStorage.getItem("auth") ? JSON.parse(localStorage.getItem("auth")).email : null;
+  const email = localStorage.getItem("auth") && localStorage.getItem("auth") !== "null" ? JSON.parse(localStorage.getItem("auth")).email : null;
 
   const viewUser = authStore ? "logout" : "login";
   const userIcon = authStore ? IoLogOut : LiaUserCircleSolid;
@@ -35,7 +35,7 @@ export const NavBar = () => {
 
   return (
     <>
-      <nav className="p-4 bg-gray-800 text-white flex justify-between items-center">
+      <nav className="p-4 bg-gray-800 text-white flex justify-between items-center max-md:flex-col max-md:gap-4">
         <div className="text-lg font-bold flex items-center">
           <VscAttach className="h-8 w-8 mr-2" />
           <p>{email != null ? formatEmail(email) : ""}</p>

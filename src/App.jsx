@@ -21,8 +21,17 @@ import { DashboardProductPage } from './pages/dashboard/components/DashboardProd
 function App() {
   const authStore = StoredAuth((state) => state);
   const userStored = localStorage.getItem("auth");
-  const {email, password, role} = userStored ? JSON.parse(userStored) : {email: null, password: null, role: null};
 
+  let email = null;
+  let password = null;
+  let role = null;
+  
+  if(userStored && userStored !== "null") {
+    const {email: storedEmail, password: storedPassword, role: storedRole} = JSON.parse(userStored);
+    email = storedEmail;
+    password = storedPassword;
+    role = storedRole;
+  }
 
   useEffect(() => {
     if(!email || !password) return;

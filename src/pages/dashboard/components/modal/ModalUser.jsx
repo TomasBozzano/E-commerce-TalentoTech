@@ -8,12 +8,17 @@ import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { Modal } from "../../../../components/Modal";
 import { valueSelect } from "../../../../utils/utils";
 
-export const ModalUser = ({ isOpen, isClosed, user }) => {
+export const ModalUser = ({ isOpen, isClosed, user, onSaved}) => {
   if (!isOpen) return null;
 
   const [selectedRole, setSelectedRole] = useState(user.role);
 
   const handleSave = async () => {
+    if (selectedRole === "") {
+      toast.error("Error: debe seleccionar un rol");
+      return;
+    }
+    
     try {
       const updateUser = await changeRole(user.id, selectedRole);
       toast.success("Usuario actualizado con éxito");
@@ -21,6 +26,7 @@ export const ModalUser = ({ isOpen, isClosed, user }) => {
       toast.error("Error al actualizar el usuario", error);
     } finally {
       setTimeout(() => {
+        onSaved();
         isClosed();
       }, 2500);
     }

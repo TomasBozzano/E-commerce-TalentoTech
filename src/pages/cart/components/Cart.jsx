@@ -69,7 +69,7 @@ export const Cart = () => {
             </header>
             <main className="flex flex-col items-center w-full p-4 gap-6">
                 <h1 className="text-2xl font-bold text-center p-4">Carrito de Compras</h1>
-                <section className="grid grid-cols-2 gap-6 w-full">
+                <section className="grid grid-cols-2 gap-6 w-full max-md:grid-cols-1">
                     <article className="flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg p-4">
                         {products.map((product) => (
                             <div key={product.id} className="grid grid-cols-3 p-2 border-b border-slate-200 items-center">

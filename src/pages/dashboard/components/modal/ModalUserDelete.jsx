@@ -3,7 +3,7 @@ import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { deleteUser } from "../../../../services/auth.service";
 import { Modal } from "../../../../components/Modal";
 
-export const ModalUserDelete = ({ isOpen, isClosed, user }) => {
+export const ModalUserDelete = ({ isOpen, isClosed, user, onSaved }) => {
 
     const handleDelete = async () => {
         try {
@@ -13,6 +13,7 @@ export const ModalUserDelete = ({ isOpen, isClosed, user }) => {
             toast.error("Error al eliminar el usuario");
         } finally {
             setTimeout(() => {
+                onSaved();
                 isClosed();
             }, 2500);
         }
