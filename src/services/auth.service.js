@@ -1,4 +1,4 @@
-const API_USER_URL = import.meta.env.VITE_API_USER_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const registerUser = async (name, email, password, role) => {
     const existingUser = await getUserByEmail(email);
@@ -12,7 +12,7 @@ export const registerUser = async (name, email, password, role) => {
     }
 
     try {
-        const response = await fetch(`${API_USER_URL}`, {
+        const response = await fetch(`${API_URL}/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export const registerUser = async (name, email, password, role) => {
 
 export const getUsers = async () => {
     try {
-        const response = await fetch(`${API_USER_URL}`, {
+        const response = await fetch(`${API_URL}/users`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export const getUsers = async () => {
 }
 
 export const getValidUser = async (email, password) => {
-    const response = await fetch(`${API_USER_URL}?email=${email}`, {
+    const response = await fetch(`${API_URL}/users?email=${email}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -58,7 +58,7 @@ export const getValidUser = async (email, password) => {
 };
 
 export const getUserByEmail = async (email) => {
-    const response = await fetch(`${API_USER_URL}?email=${email}`, {
+    const response = await fetch(`${API_URL}/users?email=${email}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -70,7 +70,7 @@ export const getUserByEmail = async (email) => {
 
 export const deleteUser = async (id) => {
     try {
-        const response = await fetch(`${API_USER_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/users/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -93,7 +93,7 @@ export const changePassword = async (id, oldPassword, newPassword) => {
     }
 
     try {
-        const response = await fetch(`${API_USER_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/users/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -120,7 +120,7 @@ export const changeRole = async (id, newRole) => {
     const updatedUser = { ...existingUser, role: newRole };
 
     try {
-        const response = await fetch(`${API_USER_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/users/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

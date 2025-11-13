@@ -7,7 +7,7 @@ export const ModalUserDelete = ({ isOpen, isClosed, user, onSaved }) => {
 
     const handleDelete = async () => {
         try {
-            const deletedUser = await deleteUser(user.id);
+            await deleteUser(user.id);
             toast.success("Usuario eliminado con éxito");
         } catch (error) {
             toast.error("Error al eliminar el usuario");

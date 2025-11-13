@@ -4,10 +4,21 @@ import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from "react-router-dom";
 import defaultAvatar from '../assets/default-avatar.png'
 import { StoredAuth } from "../store/StoredAuth.js";
+import { MdDeleteForever, MdEdit } from "react-icons/md";
+import { ButtonDefault } from "./ButtonDefault.jsx";
+import { useState } from "react";
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu";
+import { ModalUpdateProduct } from "../pages/products/components/modal/ModalUpdateProduct.jsx";
+import { ModalDeleteProduct } from "../pages/products/components/modal/ModalDeleteProduct.jsx";
 
-export const CardProduct = ({ product }) => {
+export const CardProduct = ({ product, onSaved }) => {
     const addProduct = useStore((state) => state.addProduct);
     const isLoggedIn = StoredAuth((state) => state.isAuthenticated);
+    const role = StoredAuth((state) => state.role);
+    const [hidden, setHidden] = useState(false);
+    const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false);
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
     const nav = useNavigate();
 
     const handleAddToCart = (product) => {
@@ -25,6 +36,18 @@ export const CardProduct = ({ product }) => {
 
     const handleViewDetails = () => {
         nav(`/products/${product.id}`, { state: { product } });
+    }
+
+    const handleToggleHidden = () => {
+        setHidden(!hidden);
+    }
+
+    const handleModal = (product) => {
+        setIsOpenModalUpdate(true);
+    }
+
+    const handleModalDelete = (product) => {
+        setIsOpenModalDelete(true);
     }
 
     return (
@@ -46,12 +69,39 @@ export const CardProduct = ({ product }) => {
                 </div>
                 <div className="flex flex-row p-4 mt-auto gap-2">
                     <Button nameButton="Comprar"
-                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                        className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ${hidden ? "hidden" : ""}`}
                         onClick={() => handleAddToCart(product)} />
                     <Button nameButton="Ver más"
-                        className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                        className={`bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 ${hidden ? "hidden" : ""}`}
                         onClick={handleViewDetails} />
                 </div>
+                {role === "admin" ? (
+                    <div className="flex flex-row p-4 mt-auto gap-2 justify-center">
+                        <ButtonDefault className={"bg-gray-500 text-white px-2 py-2 rounded hover:bg-gray-600"} onClick={handleToggleHidden} name={hidden ? <LuEyeClosed className="h-4 w-6" /> : <LuEye className="h-4 w-6" />} />
+                        <ButtonDefault className="bg-blue-500 text-white px-2 py-2 rounded hover:bg-blue-600" onClick={() => handleModal(product)} name={<MdEdit className="h-4 w-6" />} />
+                        <ButtonDefault className="bg-red-500 text-white px-2 py-2 rounded hover:bg-red-600" onClick={() => handleModalDelete(product)} name={<MdDeleteForever className="h-4 w-6" />} />
+                    </div>
+
+                ) : null}
+
+                {isOpenModalUpdate && (
+                    <ModalUpdateProduct
+                        isClosed={() => setIsOpenModalUpdate(false)}
+                        isOpen={isOpenModalUpdate}
+                        product={product}
+                        onSaved={onSaved}
+                    />
+                )}
+
+                {isOpenModalDelete && (
+                    <ModalDeleteProduct
+                        isClosed={() => setIsOpenModalDelete(false)}
+                        isOpen={isOpenModalDelete}
+                        productId={product.id}
+                        onSaved={onSaved}
+                    />
+                )}
+
                 <ToastContainer />
             </div>
         </>

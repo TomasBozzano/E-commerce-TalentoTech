@@ -30,21 +30,32 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await getValidUser(email, password)
 
-    if (response) {
-      authStore.login();
-      authStore.setEmail(response[0].email);
-      authStore.setPassword(response[0].password);
-      authStore.setRole(response[0].role);
+    if (!email || !password) {
+      toast.error("Error: todos los campos son obligatorios");
+      return;
+    }
 
-      toast.success("¡Inicio de sesión exitoso!");
+    try {
+      const response = await getValidUser(email, password)
+
+      if (response) {
+        authStore.login();
+        authStore.setEmail(response[0].email);
+        authStore.setPassword(response[0].password);
+        authStore.setRole(response[0].role);
+
+        toast.success("¡Inicio de sesión exitoso!");
+      } else {
+        toast.error("Error de autenticación. Por favor, verifica tus credenciales.")
+        return;
+      }
 
       setTimeout(() => {
         response[0].role === "admin" ? nav("/dashboard") : nav("/products")
       }, 2000);
-    } else {
-      toast.error("Error de autenticación. Por favor, verifica tus credenciales.")
+    } catch (error) {
+      toast.error("500 : " + error);
     }
   }
 
@@ -56,7 +67,7 @@ export const Login = () => {
     <>
       <FormLayout title="Login">
         <InputGeneric type="text" placeholder="Username" value={email} onChange={handleChange} />
-        <InputGeneric type="password" placeholder="Password" value={password} onChange={handleChange} onKeyDown={handleEnterKeyPress}/>
+        <InputGeneric type="password" placeholder="Password" value={password} onChange={handleChange} onKeyDown={handleEnterKeyPress} />
         <h3 className="text-center text-sm flex justify-center gap-1 mt-2">
           Forgot Password?
           <Link to="/api/users">

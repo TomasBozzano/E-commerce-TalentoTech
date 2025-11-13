@@ -23,7 +23,6 @@ export const Register = () => {
         setEmail(value);
     }
 
-
     const changePassword = (e) => {
         setPassword(e.target.value);
     }
@@ -38,6 +37,12 @@ export const Register = () => {
     }
 
     const handleRegister = async() => {
+
+        if (!username || !email || !password || !confirmPassword) {
+            toast.error("Error: todos los campos son obligatorios");
+            return;
+        }
+
         if (password !== confirmPassword) {
             toast.error("Error: las contraseñas no coinciden");
             return;

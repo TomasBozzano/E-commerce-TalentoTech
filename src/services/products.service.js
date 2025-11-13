@@ -2,8 +2,14 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const getProducts = async () => {
     try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const response = await fetch(`${API_URL}/products`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        
+        const data = response.json();
         return data;
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -13,7 +19,7 @@ export const getProducts = async () => {
 
 export const createProduct = async (product) => {
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${API_URL}/products`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -29,8 +35,8 @@ export const createProduct = async (product) => {
 
 export const updateProduct = async (id, updatedProduct) => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PATCH",
+        const response = await fetch(`${API_URL}/products/${id}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -45,7 +51,7 @@ export const updateProduct = async (id, updatedProduct) => {
 
 export const deleteProduct = async (id) => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/products/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

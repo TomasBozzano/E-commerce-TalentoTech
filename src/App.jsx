@@ -8,14 +8,13 @@ import { PrivateRoute } from './pages/route/PrivateRoute'
 import { LoginPage } from './pages/login/LoginPage'
 import { RegisterPage } from './pages/register/RegisterPage'
 import { LogoutPage } from './pages/logout/LogoutPage'
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { getValidUser } from './services/auth.service'
 import { StoredAuth } from './store/StoredAuth'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { PrivateRouteAdmin } from './pages/route/PrivateRouteAdmin'
 import { UserPage } from './pages/user/UserPage'
 import { DashboardUserPage } from './pages/dashboard/components/DashboardUserPage'
-import { DashboardProductPage } from './pages/dashboard/components/DashboardProductPage'
 
 
 function App() {
@@ -61,7 +60,6 @@ function App() {
         <Route element={<PrivateRouteAdmin role={role} />}>
           <Route path='/dashboard' element={<DashboardPage />} />
           <Route path='/dashboard/users' element={<DashboardUserPage />} />
-          <Route path='/dashboard/products' element={<DashboardProductPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

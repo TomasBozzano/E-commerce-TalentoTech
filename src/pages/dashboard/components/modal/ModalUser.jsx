@@ -20,7 +20,7 @@ export const ModalUser = ({ isOpen, isClosed, user, onSaved}) => {
     }
     
     try {
-      const updateUser = await changeRole(user.id, selectedRole);
+      await changeRole(user.id, selectedRole);
       toast.success("Usuario actualizado con éxito");
     } catch (error) {
       toast.error("Error al actualizar el usuario", error);
