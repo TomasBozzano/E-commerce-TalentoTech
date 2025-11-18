@@ -19,7 +19,7 @@ import { DashboardUserPage } from './pages/dashboard/components/DashboardUserPag
 
 function App() {
   const authStore = StoredAuth((state) => state);
-  const userStored = localStorage.getItem("auth");
+  const userStored = sessionStorage.getItem("auth");
 
   let email = null;
   let password = null;

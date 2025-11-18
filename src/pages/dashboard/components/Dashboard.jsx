@@ -3,7 +3,7 @@ import { formatEmail } from '../../../utils/utils'
 
 export const Dashboard = () => {
 
-  const userStored = localStorage.getItem("auth");
+  const userStored = sessionStorage.getItem("auth");
   const user = userStored ? JSON.parse(userStored) : null;
 
   return (

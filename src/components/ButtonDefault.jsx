@@ -1,5 +1,5 @@
 export const ButtonDefault = ({name, onClick, className }) => {
   return (
-    <button onClick={onClick} className={`text-white px-2 py-2 rounded ml-2 ${className}`}>{name}</button>
+    <button onClick={onClick} className={`text-white px-4 py-2 rounded ml-2 ${className}`}>{name}</button>
   )
 }

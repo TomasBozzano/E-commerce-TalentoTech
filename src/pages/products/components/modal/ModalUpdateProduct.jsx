@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { InputLabel } from "../../../../components/InputLabel";
 import { InputTextarea } from "../../../../components/InputTextarea";
@@ -11,26 +11,34 @@ export const ModalUpdateProduct = ({ isClosed, isOpen, product, onSaved }) => {
 
   if (!isOpen) return null;
 
+  const [loading, setLoading] = useState(false);
+
   const stateProduct = useProduct(product);
 
   const handleSave = async () => {
     const valid = stateProduct.validateFields();
     const validNumbers = stateProduct.validateNumberFields();
+    const validDescription = stateProduct.validateDescription(stateProduct.description);
+    await stateProduct.handleCheckAvatar();
 
-    if (!valid || !validNumbers) return;
+    if (!valid || !validNumbers || !validDescription) return;
 
     const priceNum = stateProduct.changeNumberFields(stateProduct.price);
     const stockNum = stateProduct.changeNumberFields(stateProduct.stock);
 
+    const price = stateProduct.addComNumber(priceNum);
+
     try {
+      setLoading(true);
       const productUpdated = {
         nombre: stateProduct.name,
         descripcion: stateProduct.description,
-        precio: stateProduct.addComNumber(priceNum),
+        precio: price,
         categoria: stateProduct.category,
         stock: stockNum,
         avatar: stateProduct.avatar
       };
+
       await updateProduct(product.id, productUpdated);
       toast.success("Producto actualizado");
     } catch (error) {
@@ -40,6 +48,7 @@ export const ModalUpdateProduct = ({ isClosed, isOpen, product, onSaved }) => {
       setTimeout(() => {
         onSaved();
         isClosed();
+        setLoading(false);
       }, 2500);
 
     }
@@ -109,8 +118,8 @@ export const ModalUpdateProduct = ({ isClosed, isOpen, product, onSaved }) => {
       {stateProduct.errors?.description && <p className="text-red-500 text-sm mt-1">{stateProduct.errors.description}</p>}
 
       <div className="mt-4 flex justify-end">
-        <ButtonDefault className="bg-red-600 p-2 rounded hover:bg-red-500 text-white" onClick={isClosed} name="Cancelar" />
-        <ButtonDefault className="bg-blue-600 rounded hover:bg-blue-500 p-2 text-white" onClick={handleSave} name="Guardar" />
+        <ButtonDefault className={`bg-red-600 p-2 rounded hover:bg-red-500 text-white ${loading ? "opacity-50 cursor-not-allowed" : ""}`} onClick={isClosed} name="Cancelar" />
+        <ButtonDefault className={`bg-blue-600 rounded hover:bg-blue-500 p-2 text-white ${loading ? "opacity-50 cursor-not-allowed" : ""}`} onClick={handleSave} name="Guardar" />
       </div>
       <ToastContainer />
     </Modal>

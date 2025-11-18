@@ -52,7 +52,7 @@ export const getValidUser = async (email, password) => {
 
     const isValid = user && user[0].password === password;
 
-    localStorage.setItem("auth", JSON.stringify(isValid ? user[0] : null));
+    sessionStorage.setItem("auth", JSON.stringify(isValid ? user[0] : null));
 
     return isValid ? user : null;
 };
@@ -108,8 +108,6 @@ export const changePassword = async (id, oldPassword, newPassword) => {
 };
 
 export const changeRole = async (id, newRole) => {
-    console.log("changeRole service:", id, newRole);
-
     const user = await getUsers();
     const existingUser = user.find((user) => user.id === id);
 

@@ -84,11 +84,11 @@ export const useProduct = (product) => {
 
     const validateNumberFields = () => {
         const newErrors = {};
-        const parsedPrice = parseFloat(String(price).replace(',', '.'));
-        const parsedStock = parseFloat(String(stock).replace(',', '.'));
+        const parsedPrice = parseFloat(price);
+        const parsedStock = parseFloat(stock);
 
-        if(parsedPrice === 0) newErrors.price = "El precio no puede ser cero.";
-        if(parsedStock === 0) newErrors.stock = "El stock no puede ser cero.";
+        if (parsedPrice === 0) newErrors.price = "El precio no puede ser cero.";
+        if (parsedStock === 0) newErrors.stock = "El stock no puede ser cero.";
 
         if (isNaN(parsedPrice)) newErrors.price = "Por favor, ingrese un precio numérico válido.";
         if (isNaN(parsedStock)) newErrors.stock = "Por favor, ingrese un stock numérico válido.";
@@ -99,12 +99,89 @@ export const useProduct = (product) => {
     }
 
     const changeNumberFields = (number) => {
-        const parsedNumber = parseFloat(String(number).replace(',', '.'));
-        return parsedNumber;
+        if (number === null || number === undefined) return NaN
+        let parsed;
+        const str = String(number).trim();
+
+        const cleaned = str.replace(/[^\d.,-]/g, "");
+
+        if (cleaned.includes(",")) {
+            const normalized = cleaned.replace(/\./g, "").replace(/,/g, ".");
+            parsed = normalized;
+            return parsed;
+        }
+        parsed = cleaned;
+        return parsed;
     }
 
-    const addComNumber = (text) =>{
-        return Number(text).toLocaleString("es-AR")
+    const addComNumber = (text) => {
+        // quitarle punto, coma o cualquier caracter para convertir a moneda ARS
+        const cleanedText = String(text).replace(/[^\d]/g, "");
+        let number = Number(cleanedText).toLocaleString("es-AR")
+        return number;
+    }
+
+    const isValidUrlFormat = (url) => {
+        try {
+            new URL(String(url));
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
+    const validateAvatarURL = (url, timeout = 5000) => {
+        return new Promise((resolve) => {
+            if (!isValidUrlFormat(url)) return resolve(false);
+
+            const img = new Image();
+            let timedOut = false;
+            const t = setTimeout(() => {
+                timedOut = true;
+                img.src = ""; // cancelar carga
+                resolve(false);
+            }, timeout);
+
+            img.onload = () => {
+                if (!timedOut) {
+                    clearTimeout(t);
+                    resolve(true);
+                }
+            };
+            img.onerror = () => {
+                if (!timedOut) {
+                    clearTimeout(t);
+                    resolve(false);
+                }
+            };
+
+            img.src = url;
+        });
+    }
+
+    const handleCheckAvatar = async () => {
+        const ok = await validateAvatarURL(avatar);
+        if (!ok) {
+            setErrors(prev => ({ ...prev, avatar: "Imagen no encontrada o URL inválida" }));
+        } else {
+            setErrors(prev => { const c = { ...prev }; delete c.avatar; return c; });
+        }
+    }
+
+    const validDescription = (description) => {
+        // al menos debe contener 10 caracteres para ser valido
+        const long =  description.toString().trim().length >= 10;
+        if(!long) return false;
+        return true;
+    }
+
+    const validateDescription = (description) => {
+        if (!validDescription(description)) {
+            setErrors(prev => ({ ...prev, description: "La descripción debe tener al menos 10 caracteres." }));
+            return false;
+        }
+        setErrors(prev => { const c = { ...prev }; delete c.description; return c; });
+        return true;
     }
 
     return {
@@ -116,6 +193,9 @@ export const useProduct = (product) => {
         stock,
         avatar,
         addComNumber,
+        validateDescription,
+        validateAvatarURL,
+        handleCheckAvatar,
         writtedDescription,
         writtenName,
         writtenPrice,

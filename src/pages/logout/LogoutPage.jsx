@@ -13,7 +13,8 @@ export const LogoutPage = () => {
         cartStore.clearCart();
         authStore.reset();
         authStore.logout();
-        localStorage.removeItem("auth");
+        sessionStorage.removeItem("auth");
+        sessionStorage.clear();
         toast.success("¡Cierre de sesión exitoso!");
     }, []);
 
