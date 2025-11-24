@@ -14,6 +14,7 @@ export const LogoutPage = () => {
         authStore.reset();
         authStore.logout();
         sessionStorage.removeItem("auth");
+        sessionStorage.removeItem("product");
         sessionStorage.clear();
         toast.success("¡Cierre de sesión exitoso!");
     }, []);

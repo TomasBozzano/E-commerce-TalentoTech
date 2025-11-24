@@ -8,38 +8,50 @@ import { PrivateRoute } from './pages/route/PrivateRoute'
 import { LoginPage } from './pages/login/LoginPage'
 import { RegisterPage } from './pages/register/RegisterPage'
 import { LogoutPage } from './pages/logout/LogoutPage'
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 import { getValidUser } from './services/auth.service'
 import { StoredAuth } from './store/StoredAuth'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { PrivateRouteAdmin } from './pages/route/PrivateRouteAdmin'
 import { UserPage } from './pages/user/UserPage'
 import { DashboardUserPage } from './pages/dashboard/components/DashboardUserPage'
+import { useStore } from './store/StoredProduct'
 
 
 function App() {
-  const authStore = StoredAuth((state) => state);
   const userStored = sessionStorage.getItem("auth");
+  const productStored = sessionStorage.getItem("product");
+  const authStore = StoredAuth((state) => state);
+  const addProduct = useStore((state) => state.addProduct);
 
   let email = null;
   let password = null;
   let role = null;
-  
-  if(userStored && userStored !== "null") {
-    const {email: storedEmail, password: storedPassword, role: storedRole} = JSON.parse(userStored);
+
+  if (userStored && userStored !== "null") {
+    const { email: storedEmail, password: storedPassword, role: storedRole } = JSON.parse(userStored);
     email = storedEmail;
     password = storedPassword;
     role = storedRole;
   }
 
   useEffect(() => {
-    if(!email || !password) return;
-    const isAuth = async() => {
-      const user = await getValidUser(email, password);
-      authStore.login();
-      authStore.setEmail(user[0].email);
-      authStore.setPassword(user[0].password);
-      authStore.setRole(user[0].role);
+    if (!email || !password) return;
+    const isAuth = async () => {
+      try {
+        const user = await getValidUser(email, password);
+        authStore.login();
+        authStore.setEmail(user[0].email);
+        authStore.setPassword(user[0].password);
+        authStore.setRole(user[0].role);
+        if (productStored) {
+          for (const product of JSON.parse(productStored)) {
+            addProduct(product);
+          }
+        }
+      } catch (error) {
+        console.error("Error al validar el usuario:", error);
+      }
     }
     isAuth();
   }, [])

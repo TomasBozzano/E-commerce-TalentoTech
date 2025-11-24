@@ -3,16 +3,19 @@ import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { Modal } from "../../../../components/Modal"
 import { deleteProduct } from "../../../../services/products.service";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const ModalDeleteProduct = ({ isClosed, isOpen, productId, onSaved }) => {
     if (!isOpen) return null;
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     
     const handleDelete = async () => {
         try {
             setLoading(true);
             await deleteProduct(productId);
             toast.success("Producto eliminado");
+            navigate("/products");
         } catch (error) {
             toast.error("Error al eliminar el producto");
         } finally{

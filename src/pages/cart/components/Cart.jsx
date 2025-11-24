@@ -3,7 +3,6 @@ import { useStore } from "../../../store/StoredProduct";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import trashIcon from "../../../assets/trash.svg";
-import productIcon from "../../../assets/product.svg";
 import defaultAvatar from '../../../assets/default-avatar.png'
 
 export const Cart = () => {
@@ -36,12 +35,13 @@ export const Cart = () => {
     const handleClearCart = () => {
         clearCart();
         setProducts([]);
+        sessionStorage.removeItem("product");
     }
 
     const calculateTotal = () => {
         let total = 0;
         products.forEach((product) => {
-            const changedPrice = product.precio.toString().replace(".", "");
+            const changedPrice = String(product.precio).replace(".", "");
             total += parseFloat(changedPrice) * product.cantidad;
         });
 

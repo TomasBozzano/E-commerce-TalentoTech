@@ -35,7 +35,6 @@ export const ModalCreateProduct = ({ isClosed, isOpen, onSaved }) => {
                 stock: stockNum,
                 avatar: stateProduct.avatar
             };
-            console.log(newProduct);
             await createProduct(newProduct);
             toast.success("Producto creado");
         } catch (error) {

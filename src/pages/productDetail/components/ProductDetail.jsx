@@ -5,19 +5,35 @@ import { useStore } from "../../../store/StoredProduct"
 import { toast, ToastContainer } from "react-toastify"
 import defaultAvatar from '../../../assets/default-avatar.png'
 import { StoredAuth } from "../../../store/StoredAuth"
+import { ModalUpdateProduct } from "../../products/components/modal/ModalUpdateProduct"
+import { ModalDeleteProduct } from "../../products/components/modal/ModalDeleteProduct"
+import { useState } from "react"
+import { ButtonDefault } from "../../../components/ButtonDefault"
+import { MdDeleteForever, MdEdit } from "react-icons/md";
 
-export const ProductDetail = ({ product, id }) => {
+export const ProductDetail = ({ product, onSaved }) => {
 
     const isLoggedIn = StoredAuth((state) => state.isAuthenticated);
+    const role = StoredAuth((state) => state.role);
 
     const addProduct = useStore((state) => state.addProduct)
+    const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false);
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
+
+    const handleModal = (product) => {
+        setIsOpenModalUpdate(true);
+    }
+
+    const handleModalDelete = (product) => {
+        setIsOpenModalDelete(true);
+    }
 
     const handleAddToCart = () => {
         if (!isLoggedIn) {
             toast.error("Debes iniciar sesión para agregar productos al carrito");
             return;
         }
-        
+
         if (!product) return;
         toast.success("Producto agregado al carrito");
         addProduct(product)
@@ -39,7 +55,31 @@ export const ProductDetail = ({ product, id }) => {
                         <div className="flex flex-row gap-4 mt-4">
                             <Button nameButton={<img src={plus} alt="Agregar al carrito" className="w-6 h-6" />} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600" onClick={handleAddToCart} />
                         </div>
+                        {role === "admin" ? (
+                            <div className="flex flex-row p-4 mt-auto gap-2 justify-center">
+                                <ButtonDefault className="bg-blue-500 text-white px-2 py-2 rounded hover:bg-blue-600" onClick={() => handleModal(product)} name={<MdEdit className="h-4 w-6" />} />
+                                <ButtonDefault className="bg-red-500 text-white px-2 py-2 rounded hover:bg-red-600" onClick={() => handleModalDelete(product)} name={<MdDeleteForever className="h-4 w-6" />} />
+                            </div>
+
+                        ) : null}
                     </div>
+                    {isOpenModalUpdate && (
+                        <ModalUpdateProduct
+                            isClosed={() => setIsOpenModalUpdate(false)}
+                            isOpen={isOpenModalUpdate}
+                            product={product}
+                            onSaved={onSaved}
+                        />
+                    )}
+
+                    {isOpenModalDelete && (
+                        <ModalDeleteProduct
+                            isClosed={() => setIsOpenModalDelete(false)}
+                            isOpen={isOpenModalDelete}
+                            productId={product.id}
+                            onSaved={onSaved}
+                        />
+                    )}
                 </article>
             </main>
             <ToastContainer />

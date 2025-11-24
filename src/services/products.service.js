@@ -1,5 +1,21 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
+export const getProductById = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/products/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching product by ID:', error);
+        return null;
+    }
+}
+
 export const getProducts = async () => {
     try {
         const response = await fetch(`${API_URL}/products`, {

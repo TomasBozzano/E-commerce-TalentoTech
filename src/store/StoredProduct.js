@@ -6,4 +6,5 @@ export const useStore = create((set) => ({
   removeProduct: (id) => set((state) => ({ products: state.products.filter((p) => p.id !== id) })),
   countProducts: () => set((state) => ({ count: state.products.length })),
   clearCart: () => set({ products: [] }),
+  addProducts: (products) => set({ products })
 }));

@@ -29,8 +29,10 @@ export const CardProduct = ({ product, onSaved }) => {
         }
 
         if (!product) return toast.error("Producto no disponible");
-        addProduct(product);
 
+        sessionStorage.setItem("product", JSON.stringify([...useStore.getState().products, product]));
+        addProduct(product);
+        
         toast.success("Producto agregado al carrito");
     }
 
