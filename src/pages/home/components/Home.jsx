@@ -3,8 +3,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { LinkButton } from "../../../components/LinkButton"
 import { useEffect, useState } from "react"
 import { getProducts } from "../../../services/products.service";
-import { CardProduct } from "../../../components/CardProduct";
-import { ToastContainer } from "react-toastify";
+import { ProductCarousel } from "../../../components/ProductCarousel";
 
 export const Home = () => {
     const [products, setProducts] = useState([]);
@@ -47,10 +46,6 @@ export const Home = () => {
         fetchData();
     }, []);
 
-    const productCarusel = products.slice(0, 5).map(product =>
-        <CardProduct key={product.id} product={product} onSaved={fetchData} />
-    );
-
     const productsToShow = products.slice(0, 3);
 
     return (
@@ -64,13 +59,15 @@ export const Home = () => {
                     <h2 className="text-xl font-bold text-center mb-4">Productos Destacados</h2>
                     {loading && <p className="font-bold text-center p-4">Cargando productos...</p>}
 
-                    { isMobile && !loading && products.length > 0 && (
+                    {isMobile && !loading && products.length > 0 && (
                         <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={3000} keyBoardControl={true} showDots={true}>
-                            {productCarusel}
+                            {products.slice(0, 5).map(product =>
+                                <ProductCarousel key={product.id} product={product} onSaved={fetchData} />
+                            )}
                         </Carousel>
                     )}
 
-                    { !isMobile && !loading && products.length > 0 && (
+                    {!isMobile && !loading && products.length > 0 && (
                         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                             {productsToShow.map(product => (
                                 <CardProduct key={product.id} product={product} onSaved={fetchData} />
@@ -83,7 +80,6 @@ export const Home = () => {
                     <LinkButton path="/products" nameButton="Ir a Productos" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" />
                 </section>
             </main>
-            <ToastContainer />
         </>
     )
 }

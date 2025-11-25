@@ -32,7 +32,7 @@ export const CardProduct = ({ product, onSaved }) => {
 
         sessionStorage.setItem("product", JSON.stringify([...useStore.getState().products, product]));
         addProduct(product);
-        
+
         toast.success("Producto agregado al carrito");
     }
 
