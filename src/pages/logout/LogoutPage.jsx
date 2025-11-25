@@ -4,10 +4,12 @@ import { StoredAuth } from "../../store/StoredAuth";
 import { Home } from "../home/components/Home";
 import { useEffect } from "react";
 import { useStore } from "../../store/StoredProduct";
+import { useNavigate } from "react-router-dom";
 
 export const LogoutPage = () => {
     const authStore = StoredAuth(state => state);
     const cartStore = useStore(state => state);
+    const nav = useNavigate();
     
     useEffect(() => {
         cartStore.clearCart();
@@ -17,6 +19,7 @@ export const LogoutPage = () => {
         sessionStorage.removeItem("product");
         sessionStorage.clear();
         toast.success("¡Cierre de sesión exitoso!");
+        nav('/');
     }, []);
 
     return <>
