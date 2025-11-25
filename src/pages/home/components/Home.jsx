@@ -4,6 +4,7 @@ import { LinkButton } from "../../../components/LinkButton"
 import { useEffect, useState } from "react"
 import { getProducts } from "../../../services/products.service";
 import { CardProduct } from "../../../components/CardProduct";
+import { ToastContainer } from "react-toastify";
 
 export const Home = () => {
     const [products, setProducts] = useState([]);
@@ -82,6 +83,7 @@ export const Home = () => {
                     <LinkButton path="/products" nameButton="Ir a Productos" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" />
                 </section>
             </main>
+            <ToastContainer />
         </>
     )
 }
