@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "../../../components/Button"
 import { FormLayout } from "../../../components/FormLayout"
 import { InputGeneric } from "../../../components/InputGeneric"
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../services/auth.service";
 
@@ -76,7 +76,6 @@ export const Register = () => {
                 <Button nameButton="Register" onClick={handleRegister} className="mt-4 w-full" />
                 <Button nameButton="Back to Login" onClick={handleBackToLogin} className="mt-2 w-full bg-gray-500 hover:bg-gray-600" />
             </FormLayout>
-            <ToastContainer />
         </>
     )
 }

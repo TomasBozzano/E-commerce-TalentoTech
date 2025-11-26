@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { InputBox } from "../../../../components/InputBox";
 import { InputLabel } from "../../../../components/InputLabel";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { changeRole } from "../../../../services/auth.service";
 import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { Modal } from "../../../../components/Modal";
@@ -48,7 +48,6 @@ export const ModalUser = ({ isOpen, isClosed, user, onSaved}) => {
           <ButtonDefault className="bg-blue-600 rounded hover:bg-blue-500 p-2 text-white" onClick={handleSave} name="Guardar" />
         </div>
       </section>
-      <ToastContainer />
     </Modal>
   );
 };

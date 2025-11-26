@@ -2,7 +2,7 @@ import { FormLayout } from "../../../components/FormLayout"
 import { InputGeneric } from "../../../components/InputGeneric"
 import { Button } from "../../../components/Button"
 import { Link, useNavigate } from "react-router-dom"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { useState } from "react"
 import { getValidUser } from "../../../services/auth.service"
 import { StoredAuth } from "../../../store/StoredAuth"
@@ -77,7 +77,6 @@ export const Login = () => {
         <Button nameButton="Login" onClick={handleSubmit} className="mt-4 w-full" />
         <Button nameButton="Register" onClick={registerUser} className="mt-2 w-full bg-gray-500 hover:bg-gray-600" />
       </FormLayout>
-      <ToastContainer />
     </>
   )
 }

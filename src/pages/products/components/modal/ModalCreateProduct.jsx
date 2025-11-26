@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { ButtonDefault } from '../../../../components/ButtonDefault';
 import { InputLabel } from '../../../../components/InputLabel'
 import { InputTextarea } from '../../../../components/InputTextarea'
@@ -116,8 +116,6 @@ export const ModalCreateProduct = ({ isClosed, isOpen, onSaved }) => {
                 <ButtonDefault className={`bg-red-600 p-2 rounded hover:bg-red-500 text-white ${loading ? "opacity-50 cursor-not-allowed" : ""}`} onClick={isClosed} name="Cancelar" />
                 <ButtonDefault className={`bg-blue-600 rounded hover:bg-blue-500 p-2 text-white ${loading ? "opacity-50 cursor-not-allowed" : ""}`} onClick={handleSave} name="Guardar" />
             </div>
-            <ToastContainer />
-
         </Modal>
     )
 }

@@ -4,7 +4,6 @@ import { LinkButton } from "../../../components/LinkButton"
 import { useEffect, useState } from "react"
 import { getProducts } from "../../../services/products.service";
 import { ProductCarousel } from "../../../components/ProductCarousel";
-import { ToastContainer } from "react-toastify";
 
 export const Home = () => {
     const [products, setProducts] = useState([]);

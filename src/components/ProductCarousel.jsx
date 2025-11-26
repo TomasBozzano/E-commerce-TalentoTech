@@ -1,7 +1,7 @@
 import { StoredAuth } from '../store/StoredAuth';
 import { useNavigate } from 'react-router-dom';
 import defaultAvatar from '../assets/default-avatar.png'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useStore } from '../store/StoredProduct';
 import { Button } from './Button';
 
@@ -14,17 +14,16 @@ export const ProductCarousel = ({ product }) => {
     const handleAddToCart = (product) => {
 
         if (!isLoggedIn) {
-            alert("Debes iniciar sesión para agregar productos al carrito");
-            nav('/login');
+            toast.error("Debes iniciar sesión para agregar productos al carrito");
             return;
         }
 
-        if (!product) return alert("Producto no disponible");
+        if (!product) return toast.error("Producto no disponible");
 
         sessionStorage.setItem("product", JSON.stringify([...useStore.getState().products, product]));
         addProduct(product);
 
-        alert("Producto agregado al carrito");
+        toast.success("Producto agregado al carrito");
     }
 
     const handleViewDetails = () => {
@@ -57,7 +56,6 @@ export const ProductCarousel = ({ product }) => {
                         onClick={handleViewDetails} />
                 </div>
             </div>
-            <ToastContainer removalReason="timeout"/>
         </>
     )
 }

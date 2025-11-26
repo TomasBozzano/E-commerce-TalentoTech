@@ -4,7 +4,6 @@ import { InputBox } from "../../../components/InputBox"
 import { InputGeneric } from "../../../components/InputGeneric"
 import { loadProvince } from "../../../utils/utils"
 import { ModalCheckout } from "./modal/ModalCheckout"
-import { toast, ToastContainer } from "react-toastify"
 import { formatNumber } from "../../../utils/utils"
 
 export const Checkout = ({ user, products, loading}) => {
@@ -124,7 +123,6 @@ export const Checkout = ({ user, products, loading}) => {
             {
                 isModal ? <ModalCheckout isClosed={changeModal} loading={loading} /> : null
             }
-            <ToastContainer />
         </>
     )
 }

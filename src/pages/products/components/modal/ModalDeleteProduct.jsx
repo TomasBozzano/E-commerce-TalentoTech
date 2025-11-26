@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { Modal } from "../../../../components/Modal"
 import { deleteProduct } from "../../../../services/products.service";
@@ -35,7 +35,6 @@ export const ModalDeleteProduct = ({ isClosed, isOpen, productId, onSaved }) => 
                 <ButtonDefault className={`bg-red-600 p-2 rounded hover:bg-red-500 text-white ${loading ? "opacity-50 cursor-not-allowed" : ""}`} onClick={isClosed} name="Cancelar" />
                 <ButtonDefault className={`bg-blue-600 rounded hover:bg-blue-500 p-2 text-white ${loading ? "opacity-50 cursor-not-allowed" : ""}`} onClick={handleDelete} name="Guardar" />
             </div>
-            <ToastContainer />
         </Modal>
     )
 }

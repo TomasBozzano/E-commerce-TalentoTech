@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify'
 import { NavBar } from '../components/NavBar'
 import { Footer } from './Footer'
 
@@ -10,6 +11,11 @@ export const Template = ({ children }) => {
                     {children}
                 </div>
             </main>
+            <ToastContainer autoClose={2000} 
+                    position='top-right'
+                    closeOnClick={true}
+                    draggable={true}
+                    />
             <Footer />
         </div>
     )

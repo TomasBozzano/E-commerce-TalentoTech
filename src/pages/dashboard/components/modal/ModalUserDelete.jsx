@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { deleteUser } from "../../../../services/auth.service";
 import { Modal } from "../../../../components/Modal";
@@ -28,7 +28,6 @@ export const ModalUserDelete = ({ isOpen, isClosed, user, onSaved }) => {
                     <ButtonDefault className="bg-gray-500 px-4 py-2 rounded hover:bg-gray-400" onClick={isClosed} name="Cancelar" />
                     <ButtonDefault className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={handleDelete} name="Eliminar" />
                 </div>
-                <ToastContainer />
         </Modal>
     )
 }

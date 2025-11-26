@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 import { Template } from "../../components/Template";
 import { StoredAuth } from "../../store/StoredAuth";
 import { Home } from "../home/components/Home";
@@ -26,6 +26,5 @@ export const LogoutPage = () => {
         <Template>
             <Home />
         </Template>
-        <ToastContainer />
     </>
 }

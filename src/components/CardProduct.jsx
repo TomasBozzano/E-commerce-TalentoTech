@@ -1,6 +1,6 @@
 import { Button } from "./Button"
 import { useStore } from "../store/StoredProduct.js"
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { useNavigate } from "react-router-dom";
 import defaultAvatar from '../assets/default-avatar.png'
 import { StoredAuth } from "../store/StoredAuth.js";
@@ -103,8 +103,6 @@ export const CardProduct = ({ product, onSaved }) => {
                         onSaved={onSaved}
                     />
                 )}
-
-                <ToastContainer />
             </div>
         </>
     )

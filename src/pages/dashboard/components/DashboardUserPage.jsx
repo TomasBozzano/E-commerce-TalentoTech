@@ -8,7 +8,7 @@ import { ModalUser } from './modal/ModalUser'
 import { ModalUserDelete } from "./modal/ModalUserDelete";
 import { ButtonDefault } from "../../../components/ButtonDefault";
 import { ModalUserCreate } from "./modal/ModalUserCreate";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const DashboardUserPage = () => {
 
@@ -107,7 +107,6 @@ export const DashboardUserPage = () => {
                         </div>
                     </section>
                 )}
-                <ToastContainer />
             </main>
             {isModalOpen && <ModalUser isOpen={isModalOpen} isClosed={() => setIsModalOpen(false)} user={selectedUser} onSaved={fetchUsers} />}
             {isModalOpenDelete && <ModalUserDelete isOpen={isModalOpenDelete} isClosed={() => setIsModalOpenDelete(false)} user={selectedUserDelete} onSaved={fetchUsers} />}

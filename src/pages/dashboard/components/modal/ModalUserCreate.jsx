@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { Button } from "../../../../components/Button"
 import { InputGeneric } from "../../../../components/InputGeneric"
 import { Modal } from "../../../../components/Modal"
 import { registerUser } from "../../../../services/auth.service";
-import { FormLayout } from "../../../../components/FormLayout";
 import { ButtonDefault } from "../../../../components/ButtonDefault";
 import { InputBox } from "../../../../components/InputBox";
 import { valueSelect } from '../../../../utils/utils';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const ModalUserCreate = ({ isClosed, onSaved}) => {
 
@@ -85,7 +83,6 @@ export const ModalUserCreate = ({ isClosed, onSaved}) => {
                     <ButtonDefault className="bg-gray-500 px-4 py-2 rounded hover:bg-gray-400" onClick={isClosed} name="Cancelar" />
                     <ButtonDefault className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onClick={handleRegister} name="Crear" />
                 </div>
-            <ToastContainer />
             </section>
         </Modal>
     )

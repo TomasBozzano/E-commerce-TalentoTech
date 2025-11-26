@@ -2,7 +2,7 @@ import { Button } from "../../../components/Button"
 import { LinkButton } from "../../../components/LinkButton"
 import plus from '../../../assets/plus.svg'
 import { useStore } from "../../../store/StoredProduct"
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 import defaultAvatar from '../../../assets/default-avatar.png'
 import { StoredAuth } from "../../../store/StoredAuth"
 import { ModalUpdateProduct } from "../../products/components/modal/ModalUpdateProduct"
@@ -82,7 +82,6 @@ export const ProductDetail = ({ product, onSaved }) => {
                     )}
                 </article>
             </main>
-            <ToastContainer />
         </>
     )
 }
