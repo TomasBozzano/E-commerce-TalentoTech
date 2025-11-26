@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import trashIcon from "../../../assets/trash.svg";
 import defaultAvatar from '../../../assets/default-avatar.png'
+import { formatNumber } from "../../../utils/utils";
 
 export const Cart = () => {
 
@@ -46,10 +47,6 @@ export const Cart = () => {
         });
 
         return formatNumber(total);
-    }
-
-    const formatNumber = (number) => {
-        return new Intl.NumberFormat('es-AR').format(number);
     }
 
     if (!products || products.length === 0) {
@@ -99,7 +96,7 @@ export const Cart = () => {
                         <h3 className="text-lg font-medium text-center p-4">Total a Pagar</h3>
                         <p className="text-center">${calculateTotal()}</p>
                         <LinkButton
-                            to="/checkout"
+                            path="/checkout"
                             nameButton="Ir a Pagar"
                             className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mt-4"
                         />

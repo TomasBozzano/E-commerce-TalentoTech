@@ -24,8 +24,6 @@ export const Products = () => {
 
     const roleUser = StoredAuth((state) => state.role);
 
-    // TODO: Arreglar paginación por temas de romper siguiente y anterior
-
     const fetchProducts = async () => {
         const data = await getProducts();
         setProducts(data);

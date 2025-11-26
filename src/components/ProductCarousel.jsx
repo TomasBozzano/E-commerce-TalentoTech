@@ -14,17 +14,17 @@ export const ProductCarousel = ({ product }) => {
     const handleAddToCart = (product) => {
 
         if (!isLoggedIn) {
-            toast.error("Debes iniciar sesión para agregar productos al carrito");
+            alert("Debes iniciar sesión para agregar productos al carrito");
             nav('/login');
             return;
         }
 
-        if (!product) return toast.error("Producto no disponible");
+        if (!product) return alert("Producto no disponible");
 
         sessionStorage.setItem("product", JSON.stringify([...useStore.getState().products, product]));
         addProduct(product);
 
-        toast.success("Producto agregado al carrito");
+        alert("Producto agregado al carrito");
     }
 
     const handleViewDetails = () => {
@@ -56,9 +56,8 @@ export const ProductCarousel = ({ product }) => {
                         className={`bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600`}
                         onClick={handleViewDetails} />
                 </div>
-
-                <ToastContainer />
             </div>
+            <ToastContainer removalReason="timeout"/>
         </>
     )
 }

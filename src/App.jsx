@@ -16,7 +16,7 @@ import { PrivateRouteAdmin } from './pages/route/PrivateRouteAdmin'
 import { UserPage } from './pages/user/UserPage'
 import { DashboardUserPage } from './pages/dashboard/components/DashboardUserPage'
 import { useStore } from './store/StoredProduct'
-
+import { CheckuotPage } from './pages/checkout/CheckoutPage'
 
 function App() {
   const userStored = sessionStorage.getItem("auth");
@@ -68,6 +68,7 @@ function App() {
         <Route path='/logout' element={<LogoutPage />} />
         <Route element={<PrivateRoute email={email} password={password} />}>
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/checkout' element={<CheckuotPage />} />
         </Route>
         <Route element={<PrivateRouteAdmin role={role} />}>
           <Route path='/dashboard' element={<DashboardPage />} />

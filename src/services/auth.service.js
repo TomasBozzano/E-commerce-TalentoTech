@@ -131,3 +131,19 @@ export const changeRole = async (id, newRole) => {
         throw error;
     }
 };
+
+export const getUserByMail = async (email) => {
+    try {
+        const response = await fetch(`${API_URL}/users?email=${email}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const user = await response.json();
+        return user[0];
+    } catch (error) {
+        console.error("Error al obtener el usuario por email:", error);
+        throw error;
+    }
+};
