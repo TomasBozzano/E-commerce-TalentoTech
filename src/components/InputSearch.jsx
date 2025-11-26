@@ -12,7 +12,7 @@ export const InputSearch = ({ onChange }) => {
     }
 
     return (
-        <div className="flex justify-center items-center w-2/5 border border-gray-300 rounded-md px-2">
+        <div className="flex justify-center items-center w-1/3 border border-gray-300 rounded-md px-2 max-md:w-4/5">
             <input ref={inputRef} type="text" placeholder="Buscar producto..." className="appearance-none p-2 w-full focus:outline-none" onChange={onChange} />
             <button onClick={clearInput} className="p-2 hover:bg-gray-200 rounded">
                 <RxCross2 className="w-4 h-4" />

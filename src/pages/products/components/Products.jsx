@@ -74,7 +74,7 @@ export const Products = () => {
                         {roleUser === "admin" && <ButtonDefault name="Agregar Producto" onClick={handleModalCreate} className={"bg-green-500 hover:bg-green-600"} />}
                     </div>
 
-                    <div className="flex justify-center ">
+                    <div className="flex justify-center items-center p-2">
                         <InputSearch onChange={changeSearch} />
                     </div>
 

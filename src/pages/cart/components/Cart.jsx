@@ -62,6 +62,8 @@ export const Cart = () => {
         )
     }
 
+    //TODO: agregar checkout
+
     return (
         <>
             <header className="flex flex-col items-start w-full p-4 gap-6">
