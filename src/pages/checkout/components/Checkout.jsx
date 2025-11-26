@@ -106,7 +106,7 @@ export const Checkout = ({ user, products, loading}) => {
                         <input type="text" placeholder="Código CVV" className="border border-slate-300 rounded px-3 py-2" />
                     </section>
                 </div> */}
-                    <div className="w-1/2 bg-white shadow-sm border border-slate-200 rounded-lg p-4 max-md:w/full">
+                    <div className="w-1/2 bg-white shadow-sm border border-slate-200 rounded-lg p-4 max-md:w-full">
                         <h3 className="text-lg font-medium mb-4">Resumen de la compra</h3>
                         <section className="flex flex-col gap-4">
                             <div className="flex justify-between">

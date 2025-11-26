@@ -33,7 +33,7 @@ export const CheckuotPage = () => {
   return (
     <Template>
       <h2 className="text-center text-2xl font-bold p-2"> Checkout Page </h2>
-      <header className="flex flex-col items-start p-4 mx-auto w-4/6">
+      <header className="flex flex-col items-start p-4 mx-auto w-4/6 max-md:flex-row max-md:justify-center max-md:w-full">
         <LinkButton path="/cart" nameButton="Volver al carrito" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-fit justify-content-end" />
       </header>
       <Checkout user={userData} products={products} loading={loading}/>
