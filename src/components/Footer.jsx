@@ -1,5 +1,5 @@
 import { GitHub } from "../assets/GitHub"
-import { LinkedIn } from "../assets/Linkedin"
+import { LinkedIn } from "../assets/LinkedIn"
 import { ButtonFooter } from "./ButtonFooter"
 
 export const Footer = () => {
