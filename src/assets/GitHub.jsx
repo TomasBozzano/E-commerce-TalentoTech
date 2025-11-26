@@ -1,4 +1,4 @@
-const GitHub = (props) => (
+export const GitHub = (props) => (
     <svg {...props} viewBox="0 0 1024 1024" fill="none">
         <path
             fillRule="evenodd"
@@ -9,5 +9,3 @@ const GitHub = (props) => (
         />
     </svg>
 );
-
-export { GitHub };
