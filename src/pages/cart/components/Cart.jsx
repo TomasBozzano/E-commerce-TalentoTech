@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
+import defaultAvatar from '../../../assets/default-avatar.png';
+import trashIcon from "../../../assets/trash.svg";
+import { Button } from "../../../components/Button";
 import { LinkButton } from "../../../components/LinkButton";
 import { useStore } from "../../../store/StoredProduct";
-import { useEffect, useState } from "react";
-import { Button } from "../../../components/Button";
-import trashIcon from "../../../assets/trash.svg";
-import defaultAvatar from '../../../assets/default-avatar.png'
 import { formatNumber } from "../../../utils/utils";
 
 export const Cart = () => {
@@ -58,8 +58,6 @@ export const Cart = () => {
             </main>
         )
     }
-
-    //TODO: agregar checkout
 
     return (
         <>

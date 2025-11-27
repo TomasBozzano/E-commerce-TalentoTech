@@ -1,9 +1,9 @@
-import Carousel from "react-multi-carousel"
+import { useEffect, useState } from "react";
+import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
-import { LinkButton } from "../../../components/LinkButton"
-import { useEffect, useState } from "react"
+import { CardProduct } from "../../../components/CardProduct";
+import { LinkButton } from "../../../components/LinkButton";
 import { getProducts } from "../../../services/products.service";
-import { ProductCarousel } from "../../../components/ProductCarousel";
 
 export const Home = () => {
     const [products, setProducts] = useState([]);
@@ -46,8 +46,6 @@ export const Home = () => {
         fetchData();
     }, []);
 
-    const productsToShow = products.slice(0, 3);
-
     return (
         <>
             <header className="flex justify-center">
@@ -62,15 +60,15 @@ export const Home = () => {
                     {isMobile && !loading && products.length > 0 && (
                         <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={3000} keyBoardControl={true} showDots={true}>
                             {products.slice(0, 5).map(product =>
-                                <ProductCarousel key={product.id} product={product} onSaved={fetchData} />
+                                <CardProduct key={product.id} product={product} onSaved={fetchData} />
                             )}
                         </Carousel>
                     )}
 
                     {!isMobile && !loading && products.length > 0 && (
                         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                            {productsToShow.map(product => (
-                                <ProductCarousel key={product.id} product={product} onSaved={fetchData} />
+                            {products.slice(0, 3).map(product => (
+                                <CardProduct key={product.id} product={product} onSaved={fetchData} />
                             ))}
                         </div>
                     )}
